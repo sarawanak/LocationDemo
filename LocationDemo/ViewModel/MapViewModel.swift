@@ -19,24 +19,11 @@ class MapViewModel {
             bottomRight: CLLocationCoordinate2D()
         )
     )
-    
-//    var poiWrapper: PoiWrapper
 
     init() {
-//        self.poiWrapper = poiWrapper
-
-//        self.annotationsArray = Property(
-//            initial: [],
-//            then: SignalProducer(value: poiWrapper.poiList.compactMap {
-//                POIAnnotation(
-//                    coordinate: $0.coordinate.clLocation,
-//                    title: $0.fleetType.rawValue,
-//                    subtitle: "")
-//            }))
-
         currentCoordinate
             .signal
-            .flatMap(.latest) { (visibleRegion) -> SignalProducer<Data, Error> in
+            .flatMap(.latest) { (visibleRegion) -> SignalProducer<PoiWrapper, Error> in
                 do {
                     let request = try PoiRequest.create(
                         tlCoordinate: visibleRegion.topLeft.coordinate,
@@ -46,24 +33,21 @@ class MapViewModel {
                     return SignalProducer(error: e)
                 }
             }
-            .observe { (event) in
+            .observe { [weak self] (event) in
                 switch event {
-                case let .value(data):
-                    guard let poiWrapper = try? JSONDecoder().decode(PoiWrapper.self, from: data) else {
-                        return
-                    }
-
-                    self.annotationsArray.value = poiWrapper.poiList.compactMap {
+                case let .value(poiWrapper):
+//                    poiWrapper.poiList.forEach({ (list) in
+//                        print("Item::::> \(list.coordinate)")
+//                    })
+                    self?.annotationsArray.value = poiWrapper.poiList.compactMap {
                         POIAnnotation(
                             coordinate: $0.coordinate.clLocation,
                             title: $0.fleetType.rawValue,
                             subtitle: "")
                     }
-//                        initial: [],
-//                        then: SignalProducer(value: ))
                 default:
                     ()
                 }
-        }
+            }
     }
 }

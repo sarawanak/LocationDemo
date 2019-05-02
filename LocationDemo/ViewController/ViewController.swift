@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     //MARK:- Properties
     var viewModel: MapViewModel! {
         didSet {
-            updateUiOnEvent()
+            addObservers()
         }
     }
     
@@ -37,7 +37,6 @@ class ViewController: UIViewController {
 
     @IBAction func detailsTapped(_ sender: Any) {
         let detailVC = PoiListViewController(nibName: "PoiListViewController", bundle: nil)
-//        detailVC.viewModel = PoiListViewModel(poiWrapper: viewModel!.poiWrapper)
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
@@ -54,76 +53,20 @@ class ViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.backgroundColor = .clear
     }
-    
-//    fileprivate func fetchPois(for request: URLRequest) {
-//        NetworkInterface.shared.process(request: request) { (parse: Parsable) in
-//            do {
-//                let data = try parse()
-//                let poiWrapper = try JSONDecoder().decode(PoiWrapper.self, from: data)
-//                self.viewModel = MapViewModel(poiWrapper: poiWrapper)
-//            } catch let ee {
-//                print(ee)
-//            }
-//        }
-//    }
 
-//    func getPoi(for request: URLRequest) {
-//        let poiProducer = NetworkInterface.shared.process(request: request)
-//
-//        poiProducer.producer.start { (event) in
-//            switch event {
-//            case let .value(data):
-//                guard let poiWrapper = try? JSONDecoder().decode(PoiWrapper.self, from: data) else {
-//                    return
-//                }
-//                self.viewModel = MapViewModel(poiWrapper: poiWrapper)
-//            case let .failed(error):
-//                ()
-//            case .interrupted:
-//                ()
-//            case .completed:
-//                ()
-//            }
-//        }
-//    }
-
-    func updateUiOnEvent() {
-        viewModel.annotationsArray.producer
+    func addObservers() {
+        viewModel
+            .annotationsArray.producer
             .observe(on: UIScheduler())
             .startWithValues { values in
-            values
-                .forEach { [unowned self](annotation) in
-                self.mapView.addAnnotation(annotation)
+                values.forEach { [unowned self](annotation) in
+                    self.mapView.addAnnotation(annotation)
+                }
             }
-        }
     }
-    
-//    fileprivate func createRequestAndFetchPoi(_ tlCoordinate: CLLocationCoordinate2D, _ brCoordinate: CLLocationCoordinate2D) {
-//        if let vm = viewModel {
-//            mapView.removeAnnotations(vm.annotationsArray.value)
-//        }
-//
-//        do {
-//            let request = try PoiRequest.create(
-//                tlCoordinate: tlCoordinate.coordinate,
-//                brCoordinate: brCoordinate.coordinate)
-//            getPoi(for: request)
-//        } catch let error {
-//            print(error)
-//        }
-//    }
 
     private func setDefaultLocation() {
         mapView.setRegion(defaultVisibleRegion, animated: true)
-    }
-    
-    private func getCoordinatePairForVisibleRegion(mapView: MKMapView) -> (CLLocationCoordinate2D, CLLocationCoordinate2D) {
-        let tl = view.frame.origin
-        let br = CGPoint(x: view.frame.maxX, y: view.frame.maxY)
-        let topLeftCoord = mapView.convert(tl, toCoordinateFrom: view)
-        let bottomRightCoord = mapView.convert(br, toCoordinateFrom: view)
-
-        return (topLeftCoord, bottomRightCoord)
     }
 }
 
@@ -135,9 +78,8 @@ extension ViewController: MKMapViewDelegate {
         let topLeftCoord = mapView.convert(tl, toCoordinateFrom: view)
         let bottomRightCoord = mapView.convert(br, toCoordinateFrom: view)
         
-        //createRequestAndFetchPoi(topLeftCoord, bottomRightCoord)
         mapView.removeAnnotations(viewModel.annotationsArray.value)
-        viewModel?.currentCoordinate.value = VisibleRegion(topLeft: topLeftCoord, bottomRight: bottomRightCoord)
+        viewModel?.currentCoordinate.value = VisibleRegion(topLeft: mapView.northWestCoordinate, bottomRight: mapView.southEastCoordinate)
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -156,5 +98,23 @@ extension ViewController: MKMapViewDelegate {
 extension CLLocationCoordinate2D {
     var coordinate: Coordinate {
         return Coordinate(latitude: latitude, longitude: longitude)
+    }
+}
+
+extension MKMapView {
+    var northWestCoordinate: CLLocationCoordinate2D {
+        return MKMapPoint(x: visibleMapRect.minX, y: visibleMapRect.minY).coordinate
+    }
+
+    var northEastCoordinate: CLLocationCoordinate2D {
+        return MKMapPoint(x: visibleMapRect.maxX, y: visibleMapRect.minY).coordinate
+    }
+
+    var southEastCoordinate: CLLocationCoordinate2D {
+        return MKMapPoint(x: visibleMapRect.maxX, y: visibleMapRect.maxY).coordinate
+    }
+
+    var southWestCoordinate: CLLocationCoordinate2D {
+        return MKMapPoint(x: visibleMapRect.minX, y: visibleMapRect.maxY).coordinate
     }
 }

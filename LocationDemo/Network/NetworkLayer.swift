@@ -39,29 +39,39 @@ class NetworkInterface {
         task.resume()
     }
 
-    func process(request: URLRequest) -> SignalProducer<Data, Error> {
-
-        return SignalProducer<Data, Error>({ [unowned self] (observer, lifetime) in
+    func process(request: URLRequest) -> SignalProducer<PoiWrapper, Error> {
+        return SignalProducer<Data, Error> { [unowned self] (observer, lifetime) in
             let task = self.session.dataTask(with: request) { (data, response, error) in
                 if let data = data {
-                    //                    return data
                     observer.send(value: data)
                     observer.sendCompleted()
                 } else if let error = error {
-                    //                    throw error
                     observer.send(error: error)
                 } else {
-                    //                    throw ApplicationError.GenericError
                     observer.send(error: ApplicationError.GenericError)
                 }
             }
-
             task.resume()
-        })
+        }
+//            .map({ (data) -> PoiWrapper in
+//                guard let poiWrapper = try? JSONDecoder().decode(PoiWrapper.self, from: data) else {
+//                    return 
+//                }
+//
+//                return poiWrapper
+//            })
+        .flatMap(.latest) { (data) -> SignalProducer<PoiWrapper, Error> in
+            guard let poiWrapper = try? JSONDecoder().decode(PoiWrapper.self, from: data) else {
+                return SignalProducer(error: ApplicationError.ParserError)
+            }
+
+            return SignalProducer(value: poiWrapper)
+        }
     }
 }
 
 enum ApplicationError: Error {
     case GenericError
     case InvalidURLError
+    case ParserError
 }
