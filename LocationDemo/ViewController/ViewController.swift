@@ -72,14 +72,11 @@ class ViewController: UIViewController {
 
 extension ViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        let tl = view.frame.origin
-        let br = CGPoint(x: view.frame.maxX, y: view.frame.maxY)
-        
-        let topLeftCoord = mapView.convert(tl, toCoordinateFrom: view)
-        let bottomRightCoord = mapView.convert(br, toCoordinateFrom: view)
-        
         mapView.removeAnnotations(viewModel.annotationsArray.value)
-        viewModel?.currentCoordinate.value = VisibleRegion(topLeft: mapView.northWestCoordinate, bottomRight: mapView.southEastCoordinate)
+        viewModel?.currentCoordinate.value = VisibleRegion(
+            topLeft: mapView.northWestCoordinate,
+            bottomRight: mapView.southEastCoordinate
+        )
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -92,29 +89,5 @@ extension ViewController: MKMapViewDelegate {
         }
         
         return nil
-    }
-}
-
-extension CLLocationCoordinate2D {
-    var coordinate: Coordinate {
-        return Coordinate(latitude: latitude, longitude: longitude)
-    }
-}
-
-extension MKMapView {
-    var northWestCoordinate: CLLocationCoordinate2D {
-        return MKMapPoint(x: visibleMapRect.minX, y: visibleMapRect.minY).coordinate
-    }
-
-    var northEastCoordinate: CLLocationCoordinate2D {
-        return MKMapPoint(x: visibleMapRect.maxX, y: visibleMapRect.minY).coordinate
-    }
-
-    var southEastCoordinate: CLLocationCoordinate2D {
-        return MKMapPoint(x: visibleMapRect.maxX, y: visibleMapRect.maxY).coordinate
-    }
-
-    var southWestCoordinate: CLLocationCoordinate2D {
-        return MKMapPoint(x: visibleMapRect.minX, y: visibleMapRect.maxY).coordinate
     }
 }

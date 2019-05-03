@@ -39,7 +39,7 @@ class NetworkInterface {
         task.resume()
     }
 
-    func process(request: URLRequest) -> SignalProducer<PoiWrapper, Error> {
+    func process(request: URLRequest) -> SignalProducer<Data, Error> {
         return SignalProducer<Data, Error> { [unowned self] (observer, lifetime) in
             let task = self.session.dataTask(with: request) { (data, response, error) in
                 if let data = data {
@@ -52,20 +52,6 @@ class NetworkInterface {
                 }
             }
             task.resume()
-        }
-//            .map({ (data) -> PoiWrapper in
-//                guard let poiWrapper = try? JSONDecoder().decode(PoiWrapper.self, from: data) else {
-//                    return 
-//                }
-//
-//                return poiWrapper
-//            })
-        .flatMap(.latest) { (data) -> SignalProducer<PoiWrapper, Error> in
-            guard let poiWrapper = try? JSONDecoder().decode(PoiWrapper.self, from: data) else {
-                return SignalProducer(error: ApplicationError.ParserError)
-            }
-
-            return SignalProducer(value: poiWrapper)
         }
     }
 }

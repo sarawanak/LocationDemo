@@ -70,6 +70,7 @@
 		15E3F1572239713000081FDC /* PoiListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PoiListViewController.xib; sourceTree = "<group>"; };
 		15E3F15D223971B600081FDC /* PoiViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoiViewCell.swift; sourceTree = "<group>"; };
 		15E3F15E223971B600081FDC /* PoiViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PoiViewCell.xib; sourceTree = "<group>"; };
+		15FBC934227B52CC004D715A /* Reactt.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Reactt.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		25FF682A394FC6E9D44A142B /* Pods_LocationDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LocationDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		36E60DE604FC1A92BF4F946F /* Pods-LocationDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocationDemoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LocationDemoTests/Pods-LocationDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7982D822EA3FF52112352033 /* Pods-LocationDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocationDemoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LocationDemoTests/Pods-LocationDemoTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -169,6 +170,7 @@
 		153D70CE223F94F4005CF336 /* Playgrounds */ = {
 			isa = PBXGroup;
 			children = (
+				15FBC934227B52CC004D715A /* Reactt.playground */,
 				1539A280227731970068F788 /* functional.playground */,
 				153D70CF223F955A005CF336 /* ReactivePG1.playground */,
 			);

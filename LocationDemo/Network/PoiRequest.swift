@@ -6,7 +6,8 @@
 //  Copyright © 2019 Saravanakumar Selladurai. All rights reserved.
 //
 
-import Foundation
+import ReactiveSwift
+import Result
 
 class PoiRequest {
     static func create(tlCoordinate: Coordinate, brCoordinate: Coordinate) throws -> URLRequest {
@@ -22,6 +23,18 @@ class PoiRequest {
         request.httpMethod = HttpMethod.get.rawValue
         
         return request
+    }
+
+    func getPoiList(for request: URLRequest) -> SignalProducer<PoiWrapper, Error> {
+        return NetworkInterface.shared
+            .process(request: request)
+            .flatMap(.latest) { (data) -> SignalProducer<PoiWrapper, Error> in
+                guard let poiWrapper = try? JSONDecoder().decode(PoiWrapper.self, from: data) else {
+                    return SignalProducer(error: ApplicationError.ParserError)
+                }
+
+                return SignalProducer(value: poiWrapper)
+            }
     }
 }
 
