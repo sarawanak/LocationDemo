@@ -17,10 +17,11 @@
 		1555BD60223050E60023B63C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1555BD5F223050E60023B63C /* MapKit.framework */; };
 		155B9B56223A65360045E38D /* PoiListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155B9B55223A65360045E38D /* PoiListViewModel.swift */; };
 		155B9B58223A657D0045E38D /* PoiCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155B9B57223A657D0045E38D /* PoiCellViewModel.swift */; };
+		159EA2A3229D586000502A9A /* Functional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159EA2A2229D586000502A9A /* Functional.swift */; };
 		15E3BF19222EE6DF0047E3AE /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E3BF18222EE6DF0047E3AE /* MapViewModel.swift */; };
 		15E3F14B223824EE00081FDC /* NetworkLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E3F14A223824EE00081FDC /* NetworkLayer.swift */; };
 		15E3F14D22382ADD00081FDC /* PoiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E3F14C22382ADD00081FDC /* PoiRequest.swift */; };
-		15E3F14F2238E43000081FDC /* CustomAnnotationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E3F14E2238E43000081FDC /* CustomAnnotationViewModel.swift */; };
+		15E3F14F2238E43000081FDC /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E3F14E2238E43000081FDC /* CustomAnnotation.swift */; };
 		15E3F15422390CBC00081FDC /* TaxiDetailListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E3F15322390CBC00081FDC /* TaxiDetailListViewController.m */; };
 		15E3F1582239713000081FDC /* PoiListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E3F1562239713000081FDC /* PoiListViewController.swift */; };
 		15E3F1592239713000081FDC /* PoiListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15E3F1572239713000081FDC /* PoiListViewController.xib */; };
@@ -57,10 +58,11 @@
 		1555BD5F223050E60023B63C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		155B9B55223A65360045E38D /* PoiListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoiListViewModel.swift; sourceTree = "<group>"; };
 		155B9B57223A657D0045E38D /* PoiCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoiCellViewModel.swift; sourceTree = "<group>"; };
+		159EA2A2229D586000502A9A /* Functional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functional.swift; sourceTree = "<group>"; };
 		15E3BF18222EE6DF0047E3AE /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		15E3F14A223824EE00081FDC /* NetworkLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayer.swift; sourceTree = "<group>"; };
 		15E3F14C22382ADD00081FDC /* PoiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoiRequest.swift; sourceTree = "<group>"; };
-		15E3F14E2238E43000081FDC /* CustomAnnotationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationViewModel.swift; sourceTree = "<group>"; };
+		15E3F14E2238E43000081FDC /* CustomAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 		15E3F15222390CBC00081FDC /* LocationDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LocationDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		15E3F15322390CBC00081FDC /* TaxiDetailListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaxiDetailListViewController.m; sourceTree = "<group>"; };
 		15E3F15522390D0B00081FDC /* TaxiDetailListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaxiDetailListViewController.h; sourceTree = "<group>"; };
@@ -122,11 +124,12 @@
 		15342929222BC67100F7FD61 /* LocationDemo */ = {
 			isa = PBXGroup;
 			children = (
-				15E3F15A2239717C00081FDC /* View */,
+				159EA2A6229D5A1E00502A9A /* CabCell */,
+				159EA2A5229D59FE00502A9A /* ListView */,
+				159EA2A4229D59C000502A9A /* MapView */,
+				159EA2A1229D585100502A9A /* Util */,
 				15E3F15022390C0F00081FDC /* ListModule */,
 				15E3F149223824C600081FDC /* Network */,
-				1555BD5C223035AB0023B63C /* ViewController */,
-				1534294B222BC91300F7FD61 /* ViewModel */,
 				1534294A222BC90900F7FD61 /* Model */,
 				1534292A222BC67100F7FD61 /* AppDelegate.swift */,
 				1534292E222BC67100F7FD61 /* Main.storyboard */,
@@ -154,17 +157,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		1534294B222BC91300F7FD61 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				15E3F14E2238E43000081FDC /* CustomAnnotationViewModel.swift */,
-				15E3BF18222EE6DF0047E3AE /* MapViewModel.swift */,
-				155B9B55223A65360045E38D /* PoiListViewModel.swift */,
-				155B9B57223A657D0045E38D /* PoiCellViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		153D70CE223F94F4005CF336 /* Playgrounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,14 +167,42 @@
 			path = Playgrounds;
 			sourceTree = "<group>";
 		};
-		1555BD5C223035AB0023B63C /* ViewController */ = {
+		159EA2A1229D585100502A9A /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				15E3F14E2238E43000081FDC /* CustomAnnotation.swift */,
+				159EA2A2229D586000502A9A /* Functional.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		159EA2A4229D59C000502A9A /* MapView */ = {
 			isa = PBXGroup;
 			children = (
 				1534292C222BC67100F7FD61 /* ViewController.swift */,
+				15E3BF18222EE6DF0047E3AE /* MapViewModel.swift */,
+			);
+			path = MapView;
+			sourceTree = "<group>";
+		};
+		159EA2A5229D59FE00502A9A /* ListView */ = {
+			isa = PBXGroup;
+			children = (
+				155B9B55223A65360045E38D /* PoiListViewModel.swift */,
 				15E3F1562239713000081FDC /* PoiListViewController.swift */,
 				15E3F1572239713000081FDC /* PoiListViewController.xib */,
 			);
-			path = ViewController;
+			path = ListView;
+			sourceTree = "<group>";
+		};
+		159EA2A6229D5A1E00502A9A /* CabCell */ = {
+			isa = PBXGroup;
+			children = (
+				15E3F15D223971B600081FDC /* PoiViewCell.swift */,
+				15E3F15E223971B600081FDC /* PoiViewCell.xib */,
+				155B9B57223A657D0045E38D /* PoiCellViewModel.swift */,
+			);
+			path = CabCell;
 			sourceTree = "<group>";
 		};
 		15E3F149223824C600081FDC /* Network */ = {
@@ -210,15 +230,6 @@
 				15E3F15522390D0B00081FDC /* TaxiDetailListViewController.h */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		15E3F15A2239717C00081FDC /* View */ = {
-			isa = PBXGroup;
-			children = (
-				15E3F15D223971B600081FDC /* PoiViewCell.swift */,
-				15E3F15E223971B600081FDC /* PoiViewCell.xib */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		88A5F5EFE104391D3FF03BE3 /* Pods */ = {
@@ -429,10 +440,11 @@
 			files = (
 				15E3F14B223824EE00081FDC /* NetworkLayer.swift in Sources */,
 				15E3F1582239713000081FDC /* PoiListViewController.swift in Sources */,
+				159EA2A3229D586000502A9A /* Functional.swift in Sources */,
 				1534292D222BC67100F7FD61 /* ViewController.swift in Sources */,
 				1555BD5B223035460023B63C /* PoiWrapper.swift in Sources */,
 				155B9B56223A65360045E38D /* PoiListViewModel.swift in Sources */,
-				15E3F14F2238E43000081FDC /* CustomAnnotationViewModel.swift in Sources */,
+				15E3F14F2238E43000081FDC /* CustomAnnotation.swift in Sources */,
 				15E3F14D22382ADD00081FDC /* PoiRequest.swift in Sources */,
 				15E3F15422390CBC00081FDC /* TaxiDetailListViewController.m in Sources */,
 				1534292B222BC67100F7FD61 /* AppDelegate.swift in Sources */,

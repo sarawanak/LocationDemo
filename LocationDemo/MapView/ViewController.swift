@@ -64,7 +64,7 @@ class ViewController: UIViewController {
             .observe(on: UIScheduler())
             .startWithValues { values in
                 values.forEach { [unowned self](annotation) in
-                    self.mapView.addAnnotation(annotation)
+                    annotation |> self.mapView.addAnnotation
                 }
             }
     }

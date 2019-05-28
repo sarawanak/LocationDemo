@@ -24,12 +24,6 @@ class PoiListViewController: UIViewController {
             forCellReuseIdentifier: PoiViewCell.description()
         )
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-//        tableView.reloadData()
-    }
 }
 
 extension PoiListViewController: UITableViewDataSource {
@@ -43,7 +37,6 @@ extension PoiListViewController: UITableViewDataSource {
             ) as? PoiViewCell else { return UITableViewCell() }
         
         cell.viewModel.value = viewModel.poiData[indexPath.row]
-//        cell.configure()
 
         return cell
     }
