@@ -9,24 +9,29 @@
 import Foundation
 import ReactiveSwift
 import CoreLocation
+import Result
 
 class PoiListViewModel {
+//    let c = Property()
+
 //    var poiData = MutableProperty([PoiCellViewModel]())
     var poiData = [PoiCellViewModel]()
-    var poiWrapper: PoiWrapper
-    
+
     init(poiWrapper: PoiWrapper) {
-        self.poiWrapper = poiWrapper
+//        self.poiWrapper = poiWrapper
 //        self.poiData <~ poiWrapper.poiList.map({ (poiItem)  in
 //            return PoiCellViewModel(poi: poiItem)
 //        })
-
-        poiWrapper.poiList.forEach { (item) in
-            self.poiData.append(PoiCellViewModel(poi: item))
+        poiWrapper.poiList.forEach {
+            self.poiData.append(PoiCellViewModel(poi: $0))
         }
+//        poiWrapper.startWithValues { [weak self] (poi) in
+//            poi.poiList.forEach {
+//                self?.poiData.value.append(PoiCellViewModel(poi: $0))
+//            }
+//        }
     }
 }
-
 
 struct VisibleRegion {
     let topLeft: CLLocationCoordinate2D

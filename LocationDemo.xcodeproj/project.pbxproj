@@ -15,7 +15,6 @@
 		15342940222BC67300F7FD61 /* LocationDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1534293F222BC67300F7FD61 /* LocationDemoTests.swift */; };
 		1555BD5B223035460023B63C /* PoiWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1555BD5A223035460023B63C /* PoiWrapper.swift */; };
 		1555BD60223050E60023B63C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1555BD5F223050E60023B63C /* MapKit.framework */; };
-		1557D9F222761D650025687E /* DataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1557D9F122761D650025687E /* DataParser.swift */; };
 		155B9B56223A65360045E38D /* PoiListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155B9B55223A65360045E38D /* PoiListViewModel.swift */; };
 		155B9B58223A657D0045E38D /* PoiCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155B9B57223A657D0045E38D /* PoiCellViewModel.swift */; };
 		15E3BF19222EE6DF0047E3AE /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E3BF18222EE6DF0047E3AE /* MapViewModel.swift */; };
@@ -56,7 +55,6 @@
 		153D70CF223F955A005CF336 /* ReactivePG1.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = ReactivePG1.playground; path = Playgrounds/ReactivePG1.playground; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		1555BD5A223035460023B63C /* PoiWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoiWrapper.swift; sourceTree = "<group>"; };
 		1555BD5F223050E60023B63C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		1557D9F122761D650025687E /* DataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataParser.swift; sourceTree = "<group>"; };
 		155B9B55223A65360045E38D /* PoiListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoiListViewModel.swift; sourceTree = "<group>"; };
 		155B9B57223A657D0045E38D /* PoiCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoiCellViewModel.swift; sourceTree = "<group>"; };
 		15E3BF18222EE6DF0047E3AE /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -192,7 +190,6 @@
 			children = (
 				15E3F14A223824EE00081FDC /* NetworkLayer.swift */,
 				15E3F14C22382ADD00081FDC /* PoiRequest.swift */,
-				1557D9F122761D650025687E /* DataParser.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -440,7 +437,6 @@
 				15E3F15422390CBC00081FDC /* TaxiDetailListViewController.m in Sources */,
 				1534292B222BC67100F7FD61 /* AppDelegate.swift in Sources */,
 				155B9B58223A657D0045E38D /* PoiCellViewModel.swift in Sources */,
-				1557D9F222761D650025687E /* DataParser.swift in Sources */,
 				15E3BF19222EE6DF0047E3AE /* MapViewModel.swift in Sources */,
 				15E3F15F223971B600081FDC /* PoiViewCell.swift in Sources */,
 			);

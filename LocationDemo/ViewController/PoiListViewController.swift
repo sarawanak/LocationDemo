@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import ReactiveSwift
+import Result
 
 class PoiListViewController: UIViewController {
     
@@ -17,7 +19,16 @@ class PoiListViewController: UIViewController {
         super.viewDidLoad()
         
         tableView.estimatedRowHeight = 90
-        tableView.register(UINib(nibName: "PoiViewCell", bundle: nil), forCellReuseIdentifier: PoiViewCell.description())
+        tableView.register(
+            UINib(nibName: "PoiViewCell", bundle: nil),
+            forCellReuseIdentifier: PoiViewCell.description()
+        )
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+//        tableView.reloadData()
     }
 }
 
@@ -27,11 +38,13 @@ extension PoiListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: PoiViewCell.description()) as? PoiViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: PoiViewCell.description()
+            ) as? PoiViewCell else { return UITableViewCell() }
         
-        cell.viewModel = viewModel.poiData[indexPath.row]
-        cell.configure()
-        
+        cell.viewModel.value = viewModel.poiData[indexPath.row]
+//        cell.configure()
+
         return cell
     }
 }

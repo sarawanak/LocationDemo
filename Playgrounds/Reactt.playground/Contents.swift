@@ -1,3 +1,79 @@
+import Foundation
+
+
+
+func getNext(number givenNo: Int) {
+    //Step 1: Create an array with the given Number
+    var x = [Int]()
+    var n = givenNo
+    while n > 0 {
+        x.insert(n % 10, at: 0)
+        n = n / 10
+    }
+    print(givenNo)
+
+    //Step 2: Iterate from the last, if the key is more, then swap
+    for j in x.indices.reversed() {
+        let key = x[j]
+        var reverser: Int?
+        for k in x.indices.reversed() {
+            if key > x[k] {
+                x[j] = x[k]
+                x[k] = key
+                reverser = k + 1
+                break
+            }
+        }
+        //Step 3: Iterate from the reverser to end and sort the elements
+        if let r = reverser, r < x.count {
+            for l in r..<x.count {
+                let el = x[l]
+                if (r + 1) < x.count {
+                    for m in (r+1)..<x.count {
+                        if el > x[m] {
+                            x[l] = x[m]
+                            x[m] = el
+                        }
+                    }
+                }
+            }
+            break
+        }
+    }
+    //Step 4: concat elements to form an integer
+    print(x)
+    var nextNo = 0
+    for el in x {
+        nextNo *= 10
+        nextNo += el
+    }
+    print(nextNo)
+}
+
+for i in [23894,349587,9234,6728, 83592] {
+    getNext(number: i)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ///*:
 // > ## IMPORTANT: To use `ReactiveSwift-UIExamples.playground`, please:
 // 1. Retrieve the project dependencies using one of the following terminal commands from the ReactiveSwift project root directory:

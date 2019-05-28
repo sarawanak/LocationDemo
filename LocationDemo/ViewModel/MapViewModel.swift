@@ -13,6 +13,7 @@ import CoreLocation
 import MapKit
 
 class MapViewModel {
+    var poiWrapper: PoiWrapper?
     var annotationsArray = MutableProperty<[POIAnnotation]>([])
     var currentCoordinate = MutableProperty(
         VisibleRegion(
@@ -24,32 +25,37 @@ class MapViewModel {
     init() {
         currentCoordinate
             .signal
-            .flatMap(.latest) { (visibleRegion) -> SignalProducer<PoiWrapper, Error> in
-                do {
-                    let request = try PoiRequest.create(
-                        tlCoordinate: visibleRegion.topLeft.coordinate,
-                        brCoordinate: visibleRegion.bottomRight.coordinate
-                    )
-                    return PoiRequest()
-                        .getPoiList(for: request)
-                } catch let e {
-                    return SignalProducer(error: e)
-                }
+            .flatMap(.latest, poiProducer)
+            .observe(onEvent)
+    }
+
+    func onEvent(_ event: Signal<PoiWrapper, Error>.Event) {
+        switch event {
+        case let .value(poiWrapper):
+            self.poiWrapper = poiWrapper
+            self.annotationsArray.value = poiWrapper.poiList.compactMap {
+                POIAnnotation(
+                    coordinate: $0.coordinate.clLocation,
+                    title: $0.fleetType.rawValue,
+                    subtitle: ""
+                )
             }
-            .observe { [weak self] (event) in
-                switch event {
-                case let .value(poiWrapper):
-                    self?.annotationsArray.value = poiWrapper.poiList.compactMap {
-                        POIAnnotation(
-                            coordinate: $0.coordinate.clLocation,
-                            title: $0.fleetType.rawValue,
-                            subtitle: ""
-                        )
-                    }
-                default:
-                    ()
-                }
-            }
+        default:
+            ()
+        }
+    }
+
+    func poiProducer(for region: VisibleRegion) -> SignalProducer<PoiWrapper, Error> {
+        do {
+            let request = try PoiRequest.create(
+                tlCoordinate: region.topLeft.coordinate,
+                brCoordinate: region.bottomRight.coordinate
+            )
+            return PoiRequest()
+                .getPoiList(for: request)
+        } catch let e {
+            return SignalProducer(error: e)
+        }
     }
 }
 

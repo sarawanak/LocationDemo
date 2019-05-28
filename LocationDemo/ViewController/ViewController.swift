@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import ReactiveSwift
+import Result
 
 class ViewController: UIViewController {
 
@@ -36,7 +37,10 @@ class ViewController: UIViewController {
     }
 
     @IBAction func detailsTapped(_ sender: Any) {
+        guard let wrapper = viewModel.poiWrapper else { return }
+        
         let detailVC = PoiListViewController(nibName: "PoiListViewController", bundle: nil)
+        detailVC.viewModel = PoiListViewModel(poiWrapper: wrapper)
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
@@ -90,4 +94,6 @@ extension ViewController: MKMapViewDelegate {
         
         return nil
     }
+
+    
 }
